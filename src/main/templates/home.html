@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <header>
+        <div><label id="clock"></label></div>
+        <h1>Телепрограма ІО-14 Риндя Ілля</h1>
+        <nav>
+            <ul>
+                {% if current_user.is_authenticated %}
+                <li>you are logged in as {{current_user.name}}</li>
+                <li>&nbsp</li>
+                <li>&nbsp</li>
+                <li><a href="#channels">Log out</a></li>
+                {% else %}
+                <li><a href="#channels">Log in </a></li>
+                <li><a href="#contact">Sign up</a></li>
+                {% endif %}
+                
+            </ul>
+        </nav>
+    </header>
+    <nav class="flex justify-between text-3xl my-3 text-gray-700">
+        
+    </nav>
+    <main>
+        <br>
+        <div class="day-selector">
+            <a href="/?weekday=Monday" class="day-link active">Понеділок</a>
+            <a href="/?weekday=Tuesday" class="day-link">Вівторок</a>
+            <a href="/?weekday=Wednesday" class="day-link">Середа</a>
+            <a href="/?weekday=Thursday" class="day-link">Четвер</a>
+            <a href="/?weekday=Friday" class="day-link">П'ятниця</a>
+            <a href="/?weekday=Saturday" class="day-link">Субота</a>
+            <a href="/?weekday=Sunday" class="day-link">Неділя</a>
+        </div>
+
+        <section id="channels">
+            <div class="channel-grid">
+                {% for channel in channels %}
+                <div class="channel">
+                    <h3>{{channel.title}}</h3>
+                    <table>
+                        <tbody>
+                            {% for program in channel.programs.all %}
+                            {% if program.weekday == weekday %}
+                                <tr>
+                                    <td>{{program.start_time|time:"H:i"}}</td>
+                                    <td>{{program.title}}</td>
+                                </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endfor %} 
+        </section>
+    </main>
+
+{% endblock content %}

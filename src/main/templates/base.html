@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lab4 Телепрограма</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+</head>
+
+<body>
+    <div>
+        {% block content %}{% endblock content %}
+    </div>
+    <script>
+
+        var clockElement = document.getElementById( "clock" );
+
+        function updateClock(clock){
+            clock.innerHTML = new Date().toLocaleDateString('uk-UA', {
+                weekday:"long",
+                year:"numeric",
+                month:"short",
+                day:"numeric",
+                hour:"numeric",
+                minute:"numeric",
+                second:"numeric"});
+        }
+        updateClock(clock)
+
+        setInterval(function(){
+            updateClock(clockElement);
+        },1000);
+
+    </script>
+</body>
+
+</html>

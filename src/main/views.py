@@ -33,47 +33,44 @@ class MovieListView(ListView):
         return context
 
 
-# def user_signup(request):
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         email = request.POST.get('email')
-#         password1 = request.POST.get('password1')
-#         password2 = request.POST.get('password2')
-#         if not username or not email or not password1 or not password2:
-#             messages.error(request, 'Заповніть всі поля')
-#             return render(request, 'signup.html')
-#         if password1 != password2:
-#             messages.error(request, 'Паролі не співпадають')
-#             return render(request, 'signup.html')
-#         user = authenticate(username=username, password=password1)
-#         if user:
-#             messages.error(request, 'Користувач з таким іменем вже існує')
-#             return render(request, 'signup.html')
-#         if User.objects.filter(email=email).first():
-#             messages.error(request, 'Користувач з такою поштою вже існує')
-#             return render(request, 'signup.html')
-#         user = User.objects.create_user(username=username, email=email, password=password1)
-#         user.save()
-#         login(request, user)
-#         return redirect('home')
-#     context = {'title': 'Реєстрація - Київський Кінотеатр'}
-#     context["allmovies"] = allmovies
-#     return render(request, 'signup.html', context)
+def user_signup(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+        if not username or not email or not password1 or not password2:
+            messages.error(request, 'Заповніть всі поля')
+            return render(request, 'signup.html')
+        if password1 != password2:
+            messages.error(request, 'Паролі не співпадають')
+            return render(request, 'signup.html')
+        user = authenticate(username=username, password=password1)
+        if user:
+            messages.error(request, 'Користувач з таким іменем вже існує')
+            return render(request, 'signup.html')
+        if User.objects.filter(email=email).first():
+            messages.error(request, 'Користувач з такою поштою вже існує')
+            return render(request, 'signup.html')
+        user = User.objects.create_user(username=username, email=email, password=password1)
+        user.save()
+        login(request, user)
+        return redirect('login')
+    return render(request, 'signup.html')
 
-# def user_login(request):
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-#         next = request.POST.get('next', '/')
-#         user = authenticate(username=username, password=password)
-#         if user:
-#             login(request, user)
-#         else:
-#             messages.error(request, 'Неправильний логін або пароль')
-#     return HttpResponseRedirect(next)
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'Неправильний логін або пароль')
+    return render(request, 'login.html')
 
-# def user_logout(request):
-#     if request.method == 'POST':
-#         next = request.POST.get('next', '/')
-#         logout(request)
-#         return HttpResponseRedirect(next)
+def user_logout(request):
+    next = request.POST.get('next', '/')
+    logout(request)
+    return HttpResponseRedirect(next)

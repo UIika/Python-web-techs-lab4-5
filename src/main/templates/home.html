@@ -1,28 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-    <header>
-        <div><label id="clock"></label></div>
-        <h1>Телепрограма ІО-14 Риндя Ілля</h1>
-        <nav>
-            <ul>
-                {% if current_user.is_authenticated %}
-                <li>you are logged in as {{current_user.name}}</li>
-                <li>&nbsp</li>
-                <li>&nbsp</li>
-                <li><a href="#channels">Log out</a></li>
-                {% else %}
-                <li><a href="#channels">Log in </a></li>
-                <li><a href="#contact">Sign up</a></li>
-                {% endif %}
-                
-            </ul>
-        </nav>
-    </header>
-    <nav class="flex justify-between text-3xl my-3 text-gray-700">
-        
-    </nav>
     <main>
         <br>
         <div class="day-selector">

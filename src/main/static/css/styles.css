@@ -29,6 +29,11 @@ nav a {
     text-decoration: none;
 }
 
+h1 a{
+    color: white;
+    text-decoration: none;
+}
+
 main {
     padding: 20px;
     padding-top: 0px;

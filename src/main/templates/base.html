@@ -21,7 +21,7 @@
                 <li>&nbsp</li>
                 <li><a href="/logout">Log out</a></li>
                     {% if request.user.is_superuser %}
-                    <li><a href="#channels">Admin page</a></li>
+                    <li><a href="/admin">Admin page</a></li>
                     {% endif %}
                 {% else %}
                 <li><a href="/login">Log in </a></li>

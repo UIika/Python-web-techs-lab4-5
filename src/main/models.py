@@ -11,6 +11,9 @@ class Weekday(models.TextChoices):
 
 class Channel(models.Model):
     title = models.CharField(max_length=100)
+    
+    def __str__(self) -> str:
+        return self.title
 
 class Program(models.Model):
     title = models.CharField(max_length=100)
@@ -20,3 +23,6 @@ class Program(models.Model):
     
     class Meta:
         ordering = ['start_time']
+        
+    def __str__(self) -> str:
+        return f'{self.weekday} {self.title}' 

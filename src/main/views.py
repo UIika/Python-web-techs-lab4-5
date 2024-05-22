@@ -1,9 +1,8 @@
 from datetime import datetime
 from django.shortcuts import redirect, render
-from django.views.generic import DetailView, ListView
-from django.http import HttpResponseRedirect, JsonResponse
+from django.views.generic import ListView
+from django.http import HttpResponseRedirect
 from .models import *
-from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
@@ -35,6 +34,9 @@ class MovieListView(ListView):
 
 def user_signup(request):
     if request.method == 'POST':
+        if User.objects.filter(username=request.POST.get('username')).first():
+            messages.error(request, 'Користувач з таким іменем вже існує')
+            return render(request, 'signup.html')
         username = request.POST.get('username')
         email = request.POST.get('email')
         password1 = request.POST.get('password1')
